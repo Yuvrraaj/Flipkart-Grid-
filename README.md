@@ -1,4 +1,4 @@
-#Smart Vision Quality Control System
+**Smart Vision Quality Control System
 This project was developed as part of the GRID 6.0 competition, where the objective was to design a smart vision system to automate quality and quantity checks in the e-commerce industry using advanced camera vision technology.
 
 Purpose
