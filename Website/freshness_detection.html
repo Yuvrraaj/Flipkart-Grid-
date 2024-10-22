@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Font Awesome -->
+    <title>Visurate Detection Tools</title>
+    <style>
+        body {
+            font-family: 'Playfair Display', serif;
+            background-color: #FFECD1;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: background-color 0.3s;
+        }
+
+        header {
+            background-color: #001524;
+            color: #FFECD1;
+            width: 100%;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        nav {
+            background-color: #15616D;
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+            padding: 10px 30px;
+            margin-right: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        nav a {
+            display: flex;
+            align-items: center;
+            color: #FFECD1;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-right: 20px;
+            padding: 10px 15px;
+            border-radius: 12px;
+            transition: background-color 0.3s ease;
+        }
+
+        nav a:hover {
+            background-color: #FF7D00;
+            border-radius: 5px;
+        }
+
+        .home-icon {
+            width: 24px;
+            height: 24px;
+            margin-right: 5px;
+        }
+
+        .container {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .typewriter h1 {
+            font-size: 3rem;
+            color: #15616D;
+            border-right: 2px solid;
+            white-space: nowrap;
+            overflow: hidden;
+            width: 0;
+            animation: typing 4s steps(40, end) forwards, blink-caret 0.75s step-end infinite;
+        }
+
+        @keyframes typing {
+            from {
+                width: 0;
+            }
+
+            to {
+                width: 100%;
+            }
+        }
+
+        @keyframes blink-caret {
+            from,
+            to {
+                border-color: transparent;
+            }
+
+            50% {
+                border-color: #15616D;
+            }
+        }
+
+        .buttons {
+            margin: 30px 0;
+            display: flex;
+            justify-content: center;
+            gap: 20px; /* Added spacing between buttons */
+        }
+
+        button {
+            font-family: inherit;
+            font-size: 20px;
+            background: #FF7D00; /* Updated to orange shade from the palette */
+            color: white;
+            padding: 0.7em 1em;
+            padding-left: 0.9em;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            border: none;
+            border-radius: 15px;
+            font-weight: 1000;
+            transition: background 0.3s ease;
+        }
+
+        button span {
+            display: block;
+            margin-left: 0.3em;
+            transition: all 0.3s ease-in-out;
+        }
+
+        button:hover {
+            background: #d76900; /* Darker orange on hover */
+        }
+
+        button:hover span {
+            opacity: 0;
+            transition: 0.5s linear;
+        }
+
+        button:active {
+            transform: scale(0.95);
+        }
+
+        .preview {
+            background-color: #d3d3d3;
+            width: 600px;
+            height: 350px;
+            margin: 0 auto;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(137, 58, 2, 0.634);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .predict {
+            display: flex;
+            justify-content: center; /* Center the button */
+            margin-top: 30px;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 1.2rem;
+            color: #333;
+        }
+
+        footer {
+            margin-top: 50px;
+            padding: 20px;
+            background-color: #001524;
+            color: #FFECD1;
+            text-align: center;
+            width: 100%;
+            font-size: medium;
+        }
+
+        footer a {
+            color: #FFECD1;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Visurate Detection Tools</h1>
+    </header>
+
+    <nav>
+        <a href="index.html">
+            <svg class="home-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 9l9-7 9 7v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9z" />
+                <path d="M9 22V12h6v10" />
+            </svg>
+            Home
+        </a>
+    </nav>
+
+    <div class="container">
+        <div class="typewriter">
+            <h1>DETECT FRESHNESS</h1>
+        </div>
+        <div class="buttons">
+            <button id="cameraButton">
+                <i class="fas fa-video" style="font-size: 30px;"></i>
+                <span>Open Camera</span>
+            </button>
+            <button id="uploadButton">
+                <i class="fas fa-image" style="font-size: 30px;"></i>
+                <span>Upload Image</span>
+            </button>
+            <input type="file" id="imageUpload" accept="image/*" style="display: none;">
+        </div>
+        <div class="preview" id="previewContainer"></div>
+        <div class="predict">
+            <button id="predictButton">
+                <span>Predict</span>
+            </button>
+        </div>
+        <div id="result"></div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Visurate. All rights reserved.</p>
+        <p>Contact us at <a href="mailto:info@Visurate.com">info@Visurate.com</a></p>
+    </footer>
+
+    <script>
+        const cameraButton = document.getElementById('cameraButton');
+        const uploadButton = document.getElementById('uploadButton');
+        const imageUpload = document.getElementById('imageUpload');
+        const previewContainer = document.getElementById('previewContainer');
+        const predictButton = document.getElementById('predictButton');
+        const result = document.getElementById('result');
+
+        // Handle camera feed
+        cameraButton.addEventListener('click', function () {
+            if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                navigator.mediaDevices.getUserMedia({ video: true })
+                    .then(function (stream) {
+                        const video = document.createElement('video');
+                        video.srcObject = stream;
+                        video.width = 600;
+                        video.height = 350;
+                        video.autoplay = true;
+
+                        // Clear existing content and show video
+                        previewContainer.innerHTML = '';
+                        previewContainer.appendChild(video);
+                        result.innerHTML = ''; // Clear result on new action
+                    })
+                    .catch(function (err) {
+                        alert('Error accessing camera: ' + err.message);
+                    });
+            } else {
+                alert('Camera not supported by your browser.');
+            }
+        });
+
+        // Handle image upload
+        uploadButton.addEventListener('click', function () {
+            imageUpload.click();
+        });
+
+        imageUpload.addEventListener('change', function (event) {
+            const file = event.target.files[0];
+            if (file) {
+                const img = document.createElement('img');
+                img.src = URL.createObjectURL(file);
+                img.width = 600;
+                img.height = 350;
+                img.style.objectFit = 'cover'; // Ensure image fills the preview area
+
+                // Clear existing content and show image
+                previewContainer.innerHTML = '';
+                previewContainer.appendChild(img);
+                result.innerHTML = ''; // Clear result on new action
+            } else {
+                alert('No file selected.');
+            }
+        });
+
+        // Handle predict button
+        predictButton.addEventListener('click', function () {
+            if (previewContainer.innerHTML !== '') {
+                result.innerHTML = 'Prediction: The uploaded image is a fresh item.'; // Placeholder prediction result
+            } else {
+                result.innerHTML = 'Please upload an image or open the camera first.';
+            }
+        });
+    </script>
+
+</body>
+
+</html>
